@@ -1,0 +1,11 @@
+{
+	"JsonReader": {
+		"file": "JsonReader.php",
+		"package": "Helo\\Library\\JsonReader"
+	},
+
+	"JsonWritter": {
+		"file": "JsonWritter.php",
+		"package": "Helo\\Library\\JsonWritter"
+	}
+}

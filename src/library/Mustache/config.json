@@ -1,0 +1,7 @@
+{
+	"Mustache": {
+		"file": "HeloMustache.php",
+		"package": "Helo\\Library\\Mustache",
+		"version": "2.4.1"
+	}
+}

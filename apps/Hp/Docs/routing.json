@@ -1,0 +1,13 @@
+{
+	"_controller-name": {
+		"path": "Default:index",
+		"match": [
+			"/",
+			"/{{ lang:([a-z]{2}) }}/{{ cat:(docs|features|roadmap|api|download) }}",
+			"/{{ lang:([a-z]{2}) }}/{{ cat:(docs|features|roadmap|api|download) }}/{{ mode:([a-zA-Z]+) }}"
+		],
+
+		"domain": "helophp.com",
+		"method": "GET"
+	}
+}

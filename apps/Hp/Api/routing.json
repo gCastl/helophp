@@ -1,0 +1,6 @@
+{
+	"/api/{{type:(.*)}}/{{name}}.{{format:(json|xml)}}": {
+		"controller": "Default:testApi",
+		"method": "API"
+	}
+}

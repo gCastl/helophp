@@ -1,0 +1,8 @@
+{
+	"env": "prod",
+	"enable": true,
+	"cache": false,
+	"log": false,
+	"compress": false,
+	"engine": "twig"
+}

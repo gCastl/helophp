@@ -1,0 +1,6 @@
+{
+	"CoffeeScript": {
+		"file": "HeloCoffeeScript.php",
+		"package": "Helo\\Library\\CoffeeScript"
+	}
+}

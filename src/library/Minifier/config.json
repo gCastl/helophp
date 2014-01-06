@@ -1,0 +1,11 @@
+{
+	"CssMin": {
+		"file": "CssMin.php",
+		"package": "Helo\\Library\\CssMin"
+	},
+
+	"JsMin": {
+		"file": "JsMin.php",
+		"package": "Helo\\Library\\JsMin"
+	}
+}

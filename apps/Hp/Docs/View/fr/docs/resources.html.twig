@@ -1,0 +1,137 @@
+<h1>Les Ressources</h1>
+
+<h2>Les chemins</h2>
+<pre class='no-top'>
+Peut importe le type de la ressource chargé (css, javascript, images, ...), nous avons mis en place 3 moyens simple d'accès a vos ressources.
+</pre>
+
+<pre>
+<code class="json">/
+/web/
+/Package:Application/
+</code>
+</pre>
+
+<pre class='no-top'>
+Le chemin <i><b>/</b></i> permet d'accéder au dossier <i><b>Web</b></i> de l'application courante, il suffit de mettre à la suite le chemin vers votre ressource. Prenons un exemple simple
+</pre>
+
+<pre>
+<code class="html">&#060;link href='/css/core.css'>
+
+|- Application
+|     |- View
+|     |- Web
+|     |     |- css
+|     |     |     |- <span class='string'>core.css</span>
+|     |     |- js
+|     |     |- img
+</code>
+</pre>
+
+<pre class='no-top'>
+Le chemin <i><b>/web/</b></i> permet d'accéder au dossier <i><b>web</b></i> commun à toutes les applications, pour la suite on fait comme pour le chemin précédent. Le dossier <i><b>web</b></i> peut servir pour stocker des ressources qui seront utilisées dans plusieurs applications. Appelons le fichier boostrap
+</pre>
+
+<pre>
+<code class="html">&#060;link href='/web/css/bootstrap.css'>
+
+|- web
+|     |- css
+|     |     |- <span class='string'>boostrap.css</span>
+|     |- js
+|     |     |- jquery.min.js
+</code>
+</pre>
+
+<pre class='no-top'>
+Si vous souhaitez utilisé une ressource stocké dans une autre application le chemin <i><b>/Package:App/</b></i> est fait pour vous. Il vous donne directement accès au dossier <i><b>Web</b></i> de l'application demandé.
+</pre>
+
+<pre>
+<code class="html">&#060;link href='/Hp:Docs/css/core.css'>
+
+|- Hp
+|     |- Docs
+|     |     |- Web
+|     |     |     |- css
+|     |     |     |     |- <span class='string'>core.css</span>
+|     |     |     |- js
+|     |     |     |- img
+</code>
+</pre>
+
+<pre class='no-top'>
+Ces 3 chemins vous donne l'accès au différents dossier <i><b>Web</b></i> du framework, à vous maintenant d'organiser comme bon vous semble ces dossier.
+</pre><br/>
+
+<h2>La Concaténation</h2>
+
+<pre class='no-top'>
+Pour optimiser le temps de chargement des pages il est conseillé de limiter le nombre de requête <i><b>HTTP</b></i> pour le chargement des ressources. Chaque requête effectué coûte du temps de chargement, en y ajoutant le chargement de la ressource en elle même la perte peut vite être importante. Nous avons mis en place un système de concaténation pour charger plusieurs ressources en 1 seule requête 
+</pre>
+
+<pre>
+<code class="html">&#060;link href='/css/core.css|bootstrap.css|code.css'></code>
+</pre>
+
+<pre class='no-top'>
+La concaténation n'est possible que si les fichiers concaténés sont de même type et situés dans le même dossier. Il n'y a aucune limite en terme de nombre de fichiers à charger, pour les distinguer on sépare chaque nom de fichier avec le caractère spécial " <i><b>|</b></i> ". Le dossier vers les ressources ne doit être précisé qu'une seule fois.
+</pre><br/>
+
+<h2>Tout charger</h2>
+
+<pre class='no-top'>
+Pour encore plus simplifier et optimiser le chargement des ressources il est possible de charger tous les fichiers d'un même dossier sans pour autant devoir les lister grâce au caractère de concaténation
+</pre>
+
+<pre>
+<code class="html">&#060;link href='/css/*'></code>
+</pre>
+
+<pre class='no-top'>
+De la même manière que pour la concaténation les ressources seront rassemblées en 1 seul et même fichier.
+</pre><br/>
+
+
+<h2>Compilation automatique</h2>
+
+<pre class='no-top'>
+Créer des applications puissantes, de plus en plus performantes tout en gagant en simplicité et rapidité de développement, tel est l'objectif de chaques développeurs. De nombreux projets on vu le jour pour vous aider à atteindre votre quête, des projets tels que <i><b>CoffeeScript</b></i>, <i><b>SCSS</b></i> ou encore <i><b>LESS</b></i>. Ces projets sont de magnifique librairies, le seul bémol (qui n'en est pas réellement un en faite) est qu'elles ne sont pas directement interprété par les navigateurs. Il faut, en effet, les compiler pour qu'elles puissent fonctionner.
+
+L'utilisation de ces librairies est on ne peut plus simple, en effet vous n'avez quasiment rien a faire, juste inclure vos fichiers comme vous le feriez avec les langages habituels.
+</pre>
+
+<pre>
+<code class="html">&#060;link href='/css/core.less'>
+
+&#060;link href='/css/core.scss'>
+
+&#060;script src='/js/core.coffee'>&#060;/script></code>
+</pre>
+
+<pre class='no-top'>
+Au chargement, ces ressources sont automatiquement compilées pour les rendres compatibles avec tous les navigateurs.
+</pre>
+
+
+<h2>Minification automatique</h2>
+
+<pre>
+<code class="javascript">function foo(){
+    console.log('bar');
+}</code>
+</pre>
+
+<pre>
+<code class="javascript">function foo(){console.log("bar")}</code>
+</pre>
+
+
+
+
+<script src='/js/hlight.min.js'></script>
+<script>
+	hljs.tabReplace = '    ';
+	hljs.initHighlightingOnLoad();
+</script>

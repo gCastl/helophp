@@ -1,0 +1,7 @@
+{
+	"ImageCache": {
+		"file": "HeloImageCache.php",
+		"package": "Helo\\Library\\ImageCache",
+		"version": "0.1.1"
+	}
+}

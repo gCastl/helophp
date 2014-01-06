@@ -1,0 +1,7 @@
+{
+	"Scssphp": {
+		"file": "HeloScssphp.php",
+		"package": "Helo\\Library\\Scssphp",
+		"version": "0.0.8"
+	}
+}

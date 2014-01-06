@@ -1,0 +1,6 @@
+{
+	"Network": {
+		"file": "Network.php",
+		"package": "Helo\\Library\\Network"
+	}
+}

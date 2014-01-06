@@ -1,0 +1,152 @@
+<h1>Le Routage</h1>
+
+<h2>Les routes simples</h2>
+<pre>
+<code class="json">{
+	"/url": "Class:Method"
+} 
+</code>
+</pre>
+
+<pre class='no-top'>
+Les routes simples permettent au framework d'appeler la bonne application uniquement si l'une des routes configurées est strictement identique à l'URL passé.
+
+<u>Astuce:</u> nous avons mis en place 2 routes préformatées
+</pre>
+
+<pre>
+<code class="json">
+// Pour rediriger toutes les URLs
+{
+	"*": "Class:Method"
+} 
+
+// Correspond à la racine du site
+{
+	"/": "Class:Method" 
+}
+</code>
+</pre>
+
+<pre class='no-top'>
+La grande simplicité est aussi la grande faiblesse de ces routes. Si votre application ne comporte que très peu d'URL il peu être utile et plus rapide d'utiliser les routes simples. Seulement une application, un site, peut comporter une multitude voir même un nombre indéfini d'URLs, impossible alors de toutes les répertorier dans le fichier de routage.
+</pre><br/>
+
+<h2>Les routes complexes</h2>
+
+<pre>
+<code class="json">{
+	"/{&#123; ([a-zA-Z]+) }}": "Class:Method"
+} 
+</code>
+</pre>
+
+<pre class='no-top'>
+Les routes complexes utilise les expréssions régulières, il est donc possible de répondre à n'importe quel type d'URL. En effet le routeur va vérifier si l'URL passé correspond à ou aux expréssions de votre route. Si l'une des expréssions n'est pas bonne alors la route ne l'est pas non plus. Une route peut avoir plusieurs expréssions régulières, pour qu'elles soient détéctées elles doivent obligatoirement être précédé de <i><b>{&#123;</b></i> et suivi de <i><b>}}</b></i>.
+</pre>
+
+<pre>
+<code class="json">{
+	"/{&#123; (.*) }}/{&#123; (.*) }}": "Class:Method",
+	"/{&#123; ([a-z]+)\-(foo|bar) }}": "Class:Method"
+} 
+</code>
+</pre>
+
+<pre class='no-top'>
+Qui dit expréssions régulières dit variables. En effet, une expréssion régulière est censé représenter un format et non une donnée précise. Par exemple l'expréssion <i><b>([a-z]{3})</b></i> peut correspondre aussi bien à <i><b>foo</b></i> qu'à <i><b>bar</b></i>. La valeur trouvée peut être déterminante pour l'utilisation de l'application, il est donc possible de la récupérer en précisant un nom de variables.
+</pre>
+
+<pre>
+<code class="json">{
+	"/{&#123;lang: (.*)}}": "Class:Method", // Trouve et envoi la variable lang
+	"/{&#123;lang}}": "Class:Method", // Equivalent à la ligne du dessus
+	"/{&#123;(.*)}}": "Class:Method" // Trouve mais n'envoi pas de variable
+} 
+</code>
+</pre>
+
+<pre class='no-top'>
+En reprenant le cas présenté ci-dessus la variables <i><b>$lang</b></i> prendra la valeur trouvée par l'expréssion <i><b>(.*)</b></i>. La ou les variables sont automatiquement envoyées à la méthode spécifiée pour la route.
+</pre>
+
+<pre>
+<code class="php">&#060;?php
+	class Class {
+		public function Method($lang){}
+	}
+?>
+</code>
+</pre><br/>
+
+<h2>Configurations avancées</h2>
+
+<pre class='no-top'>
+Le principe d'un framework est de pouvoir faire cohabiter plusieurs applications au sein d'un même serveur. Chaque application ayant son propre fichier de routage, des conflits peuvent apparaître si les applications ont des routes identiques configurées. Pour répondre à cette problématique il est possible de spécifier à nos routes quelques informations supplémentaires qui feront la différences.
+</pre>
+
+<pre>
+<code class="json">{
+	"/{&#123; ([a-zA-Z]+) }}": {
+		"controller": "Class:Method",
+		"domain": "helophp.com",
+		"subdomain": "www",
+		"ssl": true // https
+	}
+} 
+</code>
+</pre>
+
+<pre class='no-top'>
+Le paramètre <i><b>domain</b></i> permet de vérifier si la route correspond à l'URL passé ainsi qu'au nom de domaine du site. Le paramètre <i><b>subdomain</b></i> permet de vérifier si la route correspond à l'URL passé ainsi qu'au sous domaine du site. Le paramètre <i><b>ssl</b></i> permet de vérifier si le protocole utilisé est <i><b>HTTP (ssl: false ou non précisé)</b></i> ou <i><b>HTTPS (ssl: true)</b></i> Les 3 paramètres sont complètement dissociable, ils peuvent être utilisés séparement ou en même temps. Les paramètres avancés peuvent aussi être utilisés sur les routes simples.
+
+Il est aussi possible de configurer plusieurs valeurs pour un même paramètre, pour cela il suffit de donner les valeurs sous forme de tableau.
+</pre>
+
+<pre>
+<code class="json">{
+	"*": {
+		"controller": "Class:Method",
+		"subdomain": ["www","m"]
+	}
+} 
+</code>
+</pre><br/>
+<h2>Tous pour un et un pour tous</h2>
+<pre class='no-top'>
+Selon la configuration de vos applications, il n'est pas impossible, au sein d'une même application, que plusieurs routes pointent vers le même contrôleur (la même classe et la même méthode). Pour éviter d'être trop répétitif, il est possible de créer des ensembles de routes. 
+</pre>
+<pre>
+<code class="json">{
+	"_controller-name": {
+		"path": "Class:Method",
+		"match": [
+			"/{&#123; lang:([a-z]{2}) }}/",
+			"/{&#123; lang:([a-z]{2}) }}/{&#123; mode:([a-zA-Z]+) }}"
+		]
+	}
+}
+</code>
+</pre>
+<pre class='no-top'>
+Le nom de l'ensemble doit impérativement commencer par <i><b>_controller-</b></i> suivi d'une chaine de caractères sans caractères spéciaux. Le pointage vers le contrôleur doit se faire via le paramètre <i><b>path</b></i>. Les routes sont listés, sous forme de tableau, dans le paramètre <i><b>match</b></i>. Les paramètres de configuration avancée peuvent aussi être utilisés pour ce mode de fonctionnement.
+</pre><br/>
+
+<h2>Quand l'API va tout va</h2>
+
+<pre>
+<code class="json">{
+	"*": {
+		"controller": "Class:Method",
+		"method": "GET", // GET, POST, PUT, DELETE
+		"subdomain": "api"
+	}
+}
+</code>
+</pre>
+
+<script src='/js/hlight.min.js'></script>
+<script>
+	hljs.tabReplace = '    ';
+	hljs.initHighlightingOnLoad();
+</script>

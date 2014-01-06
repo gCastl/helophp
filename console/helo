@@ -1,0 +1,17 @@
+#!/usr/bin/env php
+<?php
+
+	set_time_limit(0);
+	
+	require_once getcwd().'/src/console/console.php';
+	require_once getcwd().'/src/console/help.php';
+	require_once getcwd().'/src/console/cli.php';
+	require_once getcwd().'/src/console/clicolor.php';
+	require_once getcwd().'/src/console/command.php';
+
+	$console = new Helo\Console\Console($argv);
+	if(($c = $console->valid_console())!=false){
+		$c->init();
+	}
+
+?>

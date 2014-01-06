@@ -1,0 +1,6 @@
+{
+	"Cache": {
+		"file": "Cache.php",
+		"package": "Helo\\Library\\Cache"
+	}
+}

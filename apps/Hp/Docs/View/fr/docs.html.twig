@@ -1,0 +1,45 @@
+{% if mode==false %}
+	{% set mode = 'intro' %}
+{% endif %}
+
+<div class='container {{active}}'>
+	<div class='table'>
+		<div class='title'>&mdash;&nbsp;&nbsp;<span>Table des matières</span>&nbsp;&nbsp;&mdash;&mdash;&mdash;&mdash;</div>
+		<ul>
+			{% set menu = [
+				{"name": "Installation", 	"link": "install"}, 
+				{"name": "Configuration", 	"link": "Configuration"},
+				{"name": "Constantes", 		"link": "constants"},
+				{"name": "Environemments", 	"link": "environments"},
+				{"name": "Applications", 	"link": "applications"},
+				{"name": "Routage", 		"link": "routing"},
+				{"name": "Modèle", 			"link": "models"},
+				{"name": "Vue", 			"link": "view"},
+				{"name": "Contrôleur", 		"link": "controller"},
+				{"name": "Ressources", 		"link": "resources"},
+				{"name": "Librairies", 		"link": "libraries"},
+				{"name": "Cache", 			"link": "cache"},
+				{"name": "Logs", 			"link": "logs"},
+				{"name": "Tests Unitaires", "link": "testing"},
+				{"name": "Console", 		"link": "console"}
+			] %}
+
+			{% for m in menu %}
+				<a href="/{{lang}}/{{active}}/{{m.link}}">
+					<li {% if mode==m.link %}class='active'{% endif %}>
+						<div>{{m.name}}</div>
+						<div>
+							{% if mode==m.link %}
+							<span class="glyphicon glyphicon-eye-open"></span>
+						{% endif %}
+						</div>
+					</li>
+				</a>
+			{% endfor %}
+		</ul>
+	</div>
+
+	<div class='content'>
+		{% include lang ~ '/docs/' ~ mode ~ '.html.twig' %}
+	</div>
+</div>

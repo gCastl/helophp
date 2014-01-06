@@ -1,0 +1,7 @@
+{
+	"Smarty": {
+		"file": "HeloSmarty.php",
+		"package": "Helo\\Library\\Smarty",
+		"version": "3.1.15"
+	}
+}
